@@ -60,3 +60,4 @@ ein Beispiel entwickeln. --- von Daten erfassung --> Information --> Wissen --> 
 # Fähigkeiten
 1. Teambildung
 2. Assistanze System mit c# und sql datenbank entwicklungserfahrung.
+3. Linux kenntnis
