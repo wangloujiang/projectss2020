@@ -19,7 +19,7 @@ unstrukturierte Daten einer Produktion im Rahmen einer Recherche
 (echte Datensätze) identifiziert werden und darauf aufbauend ein
 historischer Datensatz für die Prozesslernfabrik CiP erzeugt werden.
 Anschließend sollen konkrete Anwendungsfälle erarbeitet werden.
-# Analysis and Ability
+# Analysis 
 1. Datenanalysen und künstlicher Intelligenz in
 spezifischen Anwendungsfällen nimmt in den Produktionen der
 Unternehmen in Deutschland stetig zu  
@@ -48,3 +48,15 @@ Entscheidungsunterstützung helfen?
 _method_:  
 eher gesagt: wie entschieden uns bei Produktion? + wie könne KI davon lernen und imitieren?.
 
+4. Wie können Prozess- und Qualitätsdaten sinnvoll verknüpft
+werden?  
+_method_:  
+Rückfuhrung von Messendaten
+
+5. Wie sieht ein charakteristischer Datensatz in einer Produktion aus?  
+_method_:  
+ein Beispiel entwickeln. --- von Daten erfassung --> Information --> Wissen --> Entscheidung. 
+
+# Fähigkeiten
+1. Teambildung
+2. Assistanze System mit c# und sql datenbank entwicklungserfahrung.
