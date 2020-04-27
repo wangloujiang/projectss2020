@@ -47,16 +47,26 @@ mit ERP system zu sichern -- erfahrung dazu.
 3. Wie können Produktionsdaten und –kennzahlen bei der
 Entscheidungsunterstützung helfen? 
 _method_:  
-eher gesagt: wie entschieden uns bei Produktion? + wie könne KI davon lernen und imitieren?.
+eher gesagt:   
+wie entschieden uns bei Produktion? + wie könne KI davon lernen und imitieren?.  
+Instandhaltung und Wartung. Optimierung,stratgie auswahlen.  
 
 4. Wie können Prozess- und Qualitätsdaten sinnvoll verknüpft
 werden?  
 _method_:  
 Rückfuhrung von Messendaten
+Input: Prozessdaten
+Output: Qualitätdaten
+Blackbox:KI.
 
 5. Wie sieht ein charakteristischer Datensatz in einer Produktion aus?  
 _method_:  
-ein Beispiel entwickeln. --- von Daten erfassung --> Information --> Wissen --> Entscheidung. 
+objectorientiert.
+ein Beispiel entwickeln. 
+ID, Time, Wert, Quelle,
+Realtion: von Quellen
+
+--- von Daten erfassung --> Information --> Wissen --> Entscheidung. 
 
 # Fähigkeiten
 1. Teambildung
@@ -64,7 +74,8 @@ ein Beispiel entwickeln. --- von Daten erfassung --> Information --> Wissen --> 
 3. Linux kenntnis
 
 # Problem 
-1. Detail Aufgabe
-2. language
-3. Time(total time)
-4. working form(HO?)
+0. Anwandungsfall.
+1. Detail Aufgabe.
+2. language.
+3. Time(total time).
+4. working form(HO?).
