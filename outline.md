@@ -25,8 +25,9 @@ spezifischen Anwendungsfällen nimmt in den Produktionen der
 Unternehmen in Deutschland stetig zu  
 _Method_:  
 Literatur recherchieren -- Beispiel finden   
-Expertenbefragung -- https://www.projektmagazin.de/methoden/expertenbefragung ?? 
-Daten analyse -- Charts generieren,statistische Method
+Expertenbefragung -- https://www.projektmagazin.de/methoden/expertenbefragung ??   
+Daten analyse -- Charts generieren,statistische Method  
+Kosten, Vorhersagen, Diagnose, Prognose.
 
 2. die Datenqualität  
 ```
@@ -61,3 +62,9 @@ ein Beispiel entwickeln. --- von Daten erfassung --> Information --> Wissen --> 
 1. Teambildung
 2. Assistanze System mit c# und sql datenbank entwicklungserfahrung.
 3. Linux kenntnis
+
+# Problem 
+1. Detail Aufgabe
+2. language
+3. Time(total time)
+4. working form(HO?)
