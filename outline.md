@@ -81,8 +81,5 @@ Realtion: von Quellen
 5. Daten Format
 6. DatenBank Basiert auf?
 
-。。。
 
-
-Q1:
 
