@@ -1,9 +1,3 @@
-# the outline of the project
-## Kurzbeschreibung
-Der Einsatz von Datenanalysen und künstlicher Intelligenz in
-spezifischen Anwendungsfällen nimmt in den Produktionen der
-Unternehmen in Deutschland stetig zu. Ein großes Hindernis ist oft
-allerdings die fehlende Datenqualität sowie –quantität, die eine
 Ausschöpfung der großen Potentiale verhindern. Ziel des ARP ist es
 daher für charakteristische Anwendungsfälle Datensätze mit Quellen
 aus Theorie und Praxis zu entwickeln und die Potenziale von
@@ -56,8 +50,8 @@ werden?
 _method_:  
 Rückfuhrung von Messendaten
 Input: Prozessdaten
-Output: Qualitätdaten
-Blackbox:KI.
+Inpu: Qualitätdaten
+Blackbox:KI
 
 5. Wie sieht ein charakteristischer Datensatz in einer Produktion aus?  
 _method_:  
@@ -76,6 +70,18 @@ Realtion: von Quellen
 # Problem 
 0. Anwandungsfall.
 1. Detail Aufgabe.
-2. language.
+2. Sprache(Deutsch oder Englisch).
 3. Time(total time).
 4. working form(HO?).
+
+。。。
+
+
+Q1:
+1.Instandshaltung(Strategie auswahlen) predictive Maintainance
+basiert auf Zustandsueberwachung vor dem Ausfall Komponente rechtzeitig austauschen oder  reparieren.
+2.Qualitaetssicherung und Prozesseffizienz (Strategie auswaehlen)
+	mit bestimmten Merkmalen    vorhersagbare Qualitaet von Produkt
+	Prozessparameter einstellen um verbesserte Stabilitaet und Produktivitaet zu      erreichen
+3.Energie forecast und flexible Betrieb
+	nach Engerieversorgung Produktion dynamisch anpassen
