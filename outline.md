@@ -50,7 +50,7 @@ werden?
 _method_:  
 Rückfuhrung von Messendaten
 Input: Prozessdaten
-Inpu: Qualitätdaten
+Output: Qualitätdaten
 Blackbox:KI
 
 5. Wie sieht ein charakteristischer Datensatz in einer Produktion aus?  
