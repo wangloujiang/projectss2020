@@ -23,6 +23,11 @@ Expertenbefragung -- https://www.projektmagazin.de/methoden/expertenbefragung ??
 Daten analyse -- Charts generieren,statistische Method  
 Kosten, Vorhersagen, Diagnose, Prognose.
 
+1.Instandshaltung(Strategie auswahlen) predictive Maintainance basiert auf Zustandsueberwachung vor dem Ausfall Komponente rechtzeitig austauschen oder reparieren.  
+2.Qualitaetssicherung und Prozesseffizienz (Strategie auswaehlen）mit bestimmten Merkmalen vorhersagbare Qualitaet von Produkt Prozessparameter einstellen um verbesserte Stabilitaet und Produktivitaet zu erreichen  
+3.Energie forecast und flexible Betriebnach Engerieversorgung Produktion dynamisch anpassen
+
+
 2. die Datenqualität  
 ```
 1. Vollständigkeit der Daten
@@ -48,9 +53,9 @@ Instandhaltung und Wartung. Optimierung,stratgie auswahlen.
 4. Wie können Prozess- und Qualitätsdaten sinnvoll verknüpft
 werden?  
 _method_:  
-Rückfuhrung von Messendaten
-Input: Prozessdaten
-Output: Qualitätdaten
+Rückfuhrung von Messendaten  
+Input: Prozessdaten und Qualitätdaten
+Output: KI Algorithmus.
 Blackbox:KI
 
 5. Wie sieht ein charakteristischer Datensatz in einer Produktion aus?  
@@ -80,6 +85,4 @@ Realtion: von Quellen
 
 
 Q1:
-1.Instandshaltung(Strategie auswahlen) predictive Maintainance basiert auf Zustandsueberwachung vor dem Ausfall Komponente rechtzeitig austauschen oder reparieren.  
-2.Qualitaetssicherung und Prozesseffizienz (Strategie auswaehlen）mit bestimmten Merkmalen vorhersagbare Qualitaet von Produkt Prozessparameter einstellen um verbesserte Stabilitaet und Produktivitaet zu erreichen  
-3.Energie forecast und flexible Betriebnach Engerieversorgung Produktion dynamisch anpassen
+
