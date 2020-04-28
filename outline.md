@@ -78,8 +78,6 @@ Realtion: von Quellen
 
 
 Q1:
-1.Instandshaltung(Strategie auswahlen) predictive Maintainance basiert auf Zustandsueberwachung vor dem Ausfall Komponente rechtzeitig austauschen oder reparieren.
-2.Qualitaetssicherung und Prozesseffizienz (Strategie auswaehlen)  
-mit bestimmten Merkmalen    vorhersagbare Qualitaet von Produkt  
-Prozessparameter einstellen um verbesserte Stabilitaet und Produktivitaet zu erreichen
+1.Instandshaltung(Strategie auswahlen) predictive Maintainance basiert auf Zustandsueberwachung vor dem Ausfall Komponente rechtzeitig austauschen oder reparieren.  
+2.Qualitaetssicherung und Prozesseffizienz (Strategie auswaehlen）mit bestimmten Merkmalen vorhersagbare Qualitaet von Produkt Prozessparameter einstellen um verbesserte Stabilitaet und Produktivitaet zu erreichen
 3.Energie forecast und flexible Betriebnach Engerieversorgung Produktion dynamisch anpassen
