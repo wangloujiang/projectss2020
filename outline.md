@@ -73,6 +73,8 @@ Realtion: von Quellen
 2. Sprache(Deutsch oder Englisch).
 3. Time(total time).
 4. working form(HO?).
+5. Daten Format
+6. DatenBank Basiert auf?
 
 。。。
 
