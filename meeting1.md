@@ -1,10 +1,14 @@
 #  项目概述
 
 + 项目背景？  
-    分类回收，
+the background of the project
+
+    分类回收， recycling 
 +  möchten Papierobjekte klassifizieren.  
     --- Klassifizieren 定义？  是指区分 纸张是 报纸 书 杂志 宣传册？
+    definition of the class
 + 原始数据  
+ the row material
     label？光谱是已经有了的吗？照片背景是黑的还是混乱的。希望是黑的
 + 光谱  
     希望得到什么结果， 化学物质多细致，希望检测一种有特征的波峰，已经处理好的光谱，我们太菜了
@@ -41,3 +45,8 @@
 是否需要做光谱S-G平滑 滤波
 7. 时间期限？
 8. 学分认可？
+
+
+
+hintergrund:
+the maschine for the clas
