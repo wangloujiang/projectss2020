@@ -15,7 +15,7 @@ classdef ImageDataAnalyzer < handle
         grayMask
 %         roi = [45 15 445 635]; 
 %         imgSize = [534 676];
-        roi = [200 70 1733 2525]; 
+        roi = [200 70 1733 2525];  % reselution of the image?? range of the image?
         imgSize = [2134 2704];
 
         regionprops
@@ -64,9 +64,11 @@ classdef ImageDataAnalyzer < handle
 
         % the total integration of the function: read in the image, 
         function extractFeatures(this, img, img2, mass)
-            if nargin == 4 % nargin get the input variable numbers of the defined function 
+            % nargin get the input variable numbers of the defined function 
+            % the feature(1)  define the mass , the default mass is 1. 
+            if nargin == 4 
                 this.imgUV = imread(img2);
-                this.features(1) = mass;
+                this.features(1) = mass; 
             elseif nargin == 3
                 this.imgUV = imread(img2);
                 this.features(1) = 1;
@@ -76,9 +78,9 @@ classdef ImageDataAnalyzer < handle
             end
                     
             this.readImage(img);% rgb is always the img. UV could also be img sometime.
-            this.whiteBalance();
+            this.whiteBalance();% improvement?
             
-            this.img2binary();
+            this.img2binary(); 
             this.roi2img();     % Randbereiche abschneiden       
             this.extractRegionprops();
             
@@ -91,9 +93,10 @@ classdef ImageDataAnalyzer < handle
         function readImage(this, img)
             this.imgRGB = imread(img);
         end
-        
+        % white balance of the image of the rgb, how about the Gray World?, self adaption 
         function whiteBalance(this)
             img = double(this.imgRGB);
+            %% how we got this r,g,b?rgb(129,112,82)-- a kind of brow color, we use this color to balanve the image?
             r = 129;
             g = 119;
             b = 82;
@@ -114,10 +117,10 @@ classdef ImageDataAnalyzer < handle
         
         function img2binary(this)
             mask = zeros(this.imgSize(1),this.imgSize(2));
-            mask(this.roi(1):(this.roi(1)+this.roi(3)),this.roi(2):(this.roi(2)+this.roi(4))) = 1;
+            mask(this.roi(1):(this.roi(1)+this.roi(3)),this.roi(2):(this.roi(2)+this.roi(4))) = 1; % a range of the image is needed.
 
             % Weichzeichner anwenden
-            step2 = imgaussfilt(this.imgRGB,1);
+            step2 = imgaussfilt(this.imgRGB,1); % 2-D Gaussian filtering of images，for the gradiation of the curve， https://blog.csdn.net/hjxu2016/article/details/80745115
 
             % Umwandlung in Bi鋜bild
             step3 = im2bw(step2,0.12);
