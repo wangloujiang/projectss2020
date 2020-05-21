@@ -133,13 +133,13 @@ classdef ImageDataAnalyzer < handle
             
 
             % schwarze L鯿her in Bin鋜bild entfernen
-            this.imgBW = logical(bwareafilt(imfill(step5,'holes'),1));
-            this.imgRGB = this.imgRGB.*uint8(this.imgBW);
+            this.imgBW = logical(bwareafilt(imfill(step5,'holes'),1));% generate a logical matrix for the extract only the usfull range.
+            this.imgRGB = this.imgRGB.*uint8(this.imgBW);% all the information out of range set to 0, black.
 
         end
         
         function imgRGB2imgHSV(this)
-            this.imgHSV = rgb2hsv(this.imgRGB);
+            this.imgHSV = rgb2hsv(this.imgRGB);%HSV hue、saturation、value
 
         end
         
@@ -165,9 +165,10 @@ classdef ImageDataAnalyzer < handle
 %                 
 %                 hold off
             end
-            
+            % feature 2 and 3 == size of the object
             this.features(2) = majorAxis(maxIdx);
             this.features(3) = minorAxis(maxIdx);
+
             this.features(4) = maxVal;
             this.features(5) = minorAxis(maxIdx) / majorAxis(maxIdx);
             this.features(6) = this.features(1) / maxVal;
