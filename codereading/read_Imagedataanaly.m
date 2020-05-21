@@ -168,9 +168,12 @@ classdef ImageDataAnalyzer < handle
             % feature 2 and 3 == size of the object
             this.features(2) = majorAxis(maxIdx);
             this.features(3) = minorAxis(maxIdx);
-
+            
+            % feature 4 the area of the object
             this.features(4) = maxVal;
+            % feature 5 ratio the l/d , to rectangular or to the square?
             this.features(5) = minorAxis(maxIdx) / majorAxis(maxIdx);
+            % feature 6 the density
             this.features(6) = this.features(1) / maxVal;
             
             figure(1)
@@ -178,6 +181,7 @@ classdef ImageDataAnalyzer < handle
 
             t = linspace(0,2*pi,50);
 
+            % why we draw a Ellipse?
             hold on
             for k = 1:length(this.regionprops)
                 a = this.regionprops(k).MajorAxisLength/2;
@@ -193,13 +197,13 @@ classdef ImageDataAnalyzer < handle
         end
         
         function extractColorFeatures(this)
-            black = this.channelsInRangeProportion(this.imgHSV,[2 0.01 0.5],[3 0 0.1]);
+            black = this.channelsInRangeProportion(this.imgHSV,[2 0.01 0.5],[3 0 0.1]);% call another self defined function
             darkGray = this.channelsInRangeProportion(this.imgHSV,[2 0 0.5],[3 0.1 0.4]);
             lightGray = this.channelsInRangeProportion(this.imgHSV,[2 0 0.5],[3 0.4 0.47]);
             white = this.channelsInRangeProportion(this.imgHSV,[2 0 0.5],[3 0.47 1]);
             brown = this.channelsInRangeProportion(this.imgHSV,[1 20/360 40/360],[2 0.35 1]);
 
-            [meanHue,stdHue] = this.channelMeanSigma(this.imgHSV,1);
+            [meanHue,stdHue] = this.channelMeanSigma(this.imgHSV,1);% call another function, to get the mean value and the standard value of the color
             [meanSaturation,stdSaturation] = this.channelMeanSigma(this.imgHSV,2);
             [meanValue,stdValue] = this.channelMeanSigma(this.imgHSV,3);
             
@@ -208,6 +212,7 @@ classdef ImageDataAnalyzer < handle
             
 
 
+            % the color feature (3 channel(standard variation and mean value), + brown only?)
             this.features(12) = brown;
             this.features(17) = meanHue;
             this.features(18) = stdHue;
