@@ -1,5 +1,5 @@
 %##############
-% ACHTUNG: optische Aufheller müssen noch angepasst werden !!!
+% ACHTUNG: optische Aufheller mé»¶sen noch angepasst werden !!!
 %           manchmal wird ein Teil des Hintergrunds als Objekt erkannt
 %           (z.B. Nr 327 oder 379 +/- 1 oder 2)
 %##############
@@ -24,21 +24,21 @@ classdef ImageDataAnalyzer < handle
     end
     
 % 1     Masse
-% 2     Länge
+% 2     Lé‹˜ge
 % 3     Breite
-% 4     Fläche
+% 4     Flé‹he
 % 5     Quadratigkeit
-% 6     Flächenmasse
+% 6     Flé‹henmasse
 % 7     Anteil Schwarz
 % 8     Anteil Dunkelgrau
 % 9     Anteil Mittelgrau
 %       Anteil Hellgrau
 % 10	Anteil Braun
-% 11	Anteil Weiß
+% 11	Anteil Weiï¿½
 % 12	Mittelwert Farbton
 % 13	Std.Abw. Farbton
-% 14	Mittelwert Stättigung
-% 15	Std.Abw. Sättigung
+% 14	Mittelwert Sté‹žtigung
+% 15	Std.Abw. Sé‹žtigung
 % 16	Mittelwert Helligkeit
 % 17	Std. Abw. Helligkeit
 % 18	Textur
@@ -46,7 +46,7 @@ classdef ImageDataAnalyzer < handle
 % 20	Std.Abw. Optischer Aufheller
 % 21    bunt
 % 22    Farbmonotonie
-% 23    weiß
+% 23    weiï¿½
 % 24    hellgrau
 % 25    mittelgrau
 % 26    dunkelgrau
@@ -117,19 +117,31 @@ classdef ImageDataAnalyzer < handle
             % Weichzeichner anwenden
             step2 = imgaussfilt(this.imgRGB,1);
 
-            % Umwandlung in Biärbild
+            % Umwandlung in Bié‹œbild
             step3 = im2bw(step2,0.12);
             
-            % Binärbild maskieren, sodass nur der ROI betrachtet wird
+            % Biné‹œbild maskieren, sodass nur der ROI betrachtet wird
             step4 = step3 .* mask;
             
-            % Kleine weiße Objekte entfernen
+            % Kleine weié Objekte entfernen
             step5 = bwareaopen(step4, 5000);
-            
+% just show the result of the change.
+%             figure(1);
+%             imshow(step2);
+%             figure(2);
+%             imshow(step3);
+%             figure(3);
+%             imshow(step4);
+%             figure(4);
+%             imshow(step5);
 
-            % schwarze Löcher in Binärbild entfernen
+            
+            % schwarze Lé¯¿her in Biné‹œbild entfernen
             this.imgBW = logical(bwareafilt(imfill(step5,'holes'),1));
+            % generate a logical matrix for the extract only the usfull range.
+        
             this.imgRGB = this.imgRGB.*uint8(this.imgBW);
+            % all the information out of range set to 0, black.
 
         end
         
@@ -300,15 +312,15 @@ classdef ImageDataAnalyzer < handle
         function [mu, sig] = channelMeanSigma(img, channelNo, circular)
         %CHANNELMEANSIGMA - Berechnet Mittelwert und Standardabweichung
         %eines Kanals eines Fotos. Die Funktion Funktion kann daher z.B. dazu
-        %verwendet werden, die mittlere Farbtonsättigung und Standardabweichung eines
+        %verwendet werden, die mittlere Farbtonsé‹žtigung und Standardabweichung eines
         %Papierobjekts zu berechnen, indem ein HSV-Foto und die Kanalnummer
-        %2 für die Sättigungs-Kanal übergeben wird. Nullen werden als
+        %2 fé»µ die Sé‹žtigungs-Kanal é»šergeben wird. Nullen werden als
         %Hintergrund gewertet und daher nicht die Berechnung mit einbezogen
         %
         % Syntax:  [mu, sig] = channelMeanSigma(img, channelNo)
         %
         % Inputs:
-        %    img - Bild-Matrix der Form (Länge x Breite x Kanäle)
+        %    img - Bild-Matrix der Form (Lé‹˜ge x Breite x Kané‹–e)
         %    channelNo - Nummer des zu verwendenden Kanals
         %
         % Outputs:
@@ -316,7 +328,7 @@ classdef ImageDataAnalyzer < handle
         %    sigma - Standardabweichung des Kanals
         %
         % Example: 
-        %    % Mittlere Farbtonsättigung berechnen:
+        %    % Mittlere Farbtonsé‹žtigung berechnen:
         %    [mu, sig] = this.channelMeanSigma(this.imgHSV, 2)
         %
         %------------- BEGIN CODE --------------
@@ -338,26 +350,26 @@ classdef ImageDataAnalyzer < handle
         
         function proportion = channelsInRangeProportion(img, varargin)
         %CHANNELSINRANGEPROPORTION - Berechnet den Anteil der Pixel, die
-        %eine oder mehrere Bedingungen an die Kanäle erfüllen. So kann
-        %beispielweise der Anteil an weißen Pixeln bestimmt werden, indem
+        %eine oder mehrere Bedingungen an die Kané‹–e erfé»®len. So kann
+        %beispielweise der Anteil an weién Pixeln bestimmt werden, indem
         %ein HSV-Foto und einen Vektor mit dem Value-Kanal 3 mit dem
-        %Minimalwert 0.99 und dem Maximalwert 1 übergeben wird. Mehrere
-        %Bedingungen können durch mehrere solcher Vektoren gefordert
+        %Minimalwert 0.99 und dem Maximalwert 1 é»šergeben wird. Mehrere
+        %Bedingungen ké°Šnen durch mehrere solcher Vektoren gefordert
         %werden.
         %Nullen werden als Hintergrund gewertet und daher nicht die Berechnung mit einbezogen
         %
         % Syntax:  proportion = channelsInRangeProportion(img, varargin)
         %
         % Inputs:
-        %    img - Bild-Matrix der Form (Länge x Breite x Kanäle)
+        %    img - Bild-Matrix der Form (Lé‹˜ge x Breite x Kané‹–e)
         %    varargin - Vektoren der Form [Kanal minWert maxWert]
         %
         % Outputs:
         %    proportion - Prozentualer Anteil der Pixel, die die
-        %    Bedingungen erfüllen
+        %    Bedingungen erfé»®len
         %
         % Example: 
-        %    % Anteil an weißen Pixeln berechnen
+        %    % Anteil an weién Pixeln berechnen
         %    [mu, sig] = this.channelsInRangeProportion(this.imgHSV, [3, 0.99, 1])
         %
         %------------- BEGIN CODE --------------
