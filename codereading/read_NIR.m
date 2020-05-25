@@ -46,7 +46,7 @@ classdef NIRRegressionAnalyzer < handle
             this.data = medfilt1(this.data,3,[],2);  % specifies the dimension, dim, along which the filter operates
         end
         
-        function applySNV(this)
+        function applySNV(this) % standard of the curve
             this.data = (this.data - mean(this.data,2))./std(this.data,0,2);
         end
         
