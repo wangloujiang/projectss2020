@@ -108,6 +108,7 @@ classdef ImageDataAnalyzer < handle
             imgUV(:,:,2) = imgUV(:,:,2) * 250 / (g+1E-12);
             imgUV(:,:,3) = imgUV(:,:,3) * 250 / (b+1E-12);
             this.imgUV = uint8(imgUV);
+            imshow(this.imgRGB)
         end
         
         function img2binary(this)
@@ -142,6 +143,7 @@ classdef ImageDataAnalyzer < handle
         
             this.imgRGB = this.imgRGB.*uint8(this.imgBW);
             % all the information out of range set to 0, black.
+            imshowpair(this.imgBW,this.imgRGB,'montage');
 
         end
         
