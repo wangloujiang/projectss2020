@@ -1,6 +1,7 @@
 %% quick check of the method imbinary
-img = imread("D:\Pictures\Pictures\5760_1.jpg");
+img = imread("D:\Pictures\Pictures\5753_1.jpg");
 roi = [60 2585 205 2100];
+
 img = img(roi(3):roi(4),roi(1):roi(2),:);
 mask = zeros(2134,2704);
 mask(roi(1):(roi(1)+roi(3)),roi(2):(roi(2)+roi(4))) = 1;
@@ -117,11 +118,28 @@ imgdown=1;
         
 
 end
+%% another filter to the picture
+I_bw = im2bw(filtedImg,0.8);
+s = strel('disk',10);% define the brush
+I_close = imclose(I_bw,s); % fill the small clapse
+I_close= ones(height,width) - I_close;
+
+
+L = bwlabel(I_close);% lable the connected same piexel region 
+stats = regionprops(L); % get the labled information,such as area, BoundingBox,...
+
+Ar = cat(1, stats.Area);% label the size of each 
+ind = find(Ar ==max(Ar));%find the biggest area lable. 
+I_close(find(L~=ind))=0;%fill the hole of other places
 
 
 
 
-subplot(2,2,1);imshow(filtedImg);title('result iamge');subplot(2,2,2), imshow(I_close);title('the edge ');subplot(2,2,3), imshow(img);title('the origin ');
+
+
+%% output of the image
+subplot(2,2,1);imshow(filtedImg);title('result iamge before filter');subplot(2,2,2), imshow(I_close);title('the edge ');
+subplot(2,2,3), imshow(img);title('the origin ');
 
 
 
