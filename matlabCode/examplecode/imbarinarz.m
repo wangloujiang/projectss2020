@@ -1,6 +1,6 @@
 %% quick check of the method imbinary
-img = imread("D:\Pictures\Pictures\5753_1.jpg");
-roi = [60 2585 205 2100];
+img = imread("D:\Pictures\Pictures\5781_1.jpg");
+roi = [60 2585 160 2100];
 
 img = img(roi(3):roi(4),roi(1):roi(2),:);
 mask = zeros(2134,2704);
