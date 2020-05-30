@@ -20,10 +20,10 @@ classdef NIRRegressionAnalyzer < handle
         
         function [RMSE_PSL_P, RMSE_PCR_P] = processData(this, data, min, max)
             % Datenaufnahme
-            data = sortrows(data,225);
+            data = sortrows(data,225);   % sort according to the last colum Problem： what‘s the mean of the last column
             this.data = data(:,1:224);
             this.response = data(:,225);
-            this.wavelength = 939:(1727-939)/223:1727;
+            this.wavelength = 939:(1727-939)/223:1727; % 224 wavelength channels over a range from 900 nm to 1700 nm
             
             % Pre-Processing
             this.applyMedFilter();% a third-order one-dimensional median filter, make the curve smoother
@@ -46,12 +46,12 @@ classdef NIRRegressionAnalyzer < handle
             this.data = medfilt1(this.data,3,[],2);  % specifies the dimension, dim, along which the filter operates
         end
         
-        function applySNV(this) % standard of the curve
+        function applySNV(this) % standard of the curve to reduce the physcial variability paper section 2.3.1 
             this.data = (this.data - mean(this.data,2))./std(this.data,0,2);
         end
         
-        function applySGFDerivative(this, derivative, order, window)
-            [~,g] = sgolay(order,window);
+        function applySGFDerivative(this, derivative, order, window) % Savitzky-Golay filter to remove the noise from derivative
+            [~,g] = sgolay(order,window);% what does mean about window？
 %             for i = 1:size(data,1)    
 %                 this.processedData(i,:) = conv(data(i,:)', factorial(derivative) * g(:,derivative+1), 'same');
 %             end
@@ -67,15 +67,15 @@ classdef NIRRegressionAnalyzer < handle
             end
             idx = (this.wavelength > min) & (this.wavelength < max);
             this.wavelength = this.wavelength(idx);
-            this.data = this.data(:,idx);
+            this.data = this.data(:,idx); % select the usable signal？  
         end
         
-        function splitData(this, m, n)
+        function splitData(this, m, n) %split data（1 to 224） to calculation and validation
             this.dataCal = this.data;
-            this.dataCal(m:n:end,:) = [];
-            this.dataVal = this.data(m:n:end,:);
+            this.dataCal(m:n:end,:) = []; % row before m are used to train
+            this.dataVal = this.data(m:n:end,:); % row after m are used to validation
             
-            this.responseCal = this.response;
+            this.responseCal = this.response; %the same method but problem： what ’s the meaning of column 225？
             this.responseCal(m:n:end,:) = [];
             this.responseVal = this.response(m:n:end,:);
         end
@@ -83,15 +83,15 @@ classdef NIRRegressionAnalyzer < handle
         
         %% Regression
         
-        function numComp = chooseComponents(this, fold)
+        function numComp = chooseComponents(this, fold)% compare with PCR and PLS
             [n,p] = size(this.dataCal);
             % PLS
-            [Xl,Yl,Xs,Ys,beta,pctVar,PLSmsep] = plsregress(this.dataCal,this.responseCal,10,'CV',fold);
+            [Xl,Yl,Xs,Ys,beta,pctVar,PLSmsep] = plsregress(this.dataCal,this.responseCal,10,'CV',fold); % partial least squares regression select 10 components
             % PCA
-            PCRmsep = sum(crossval(@pcrsse,this.dataCal,this.responseCal,'KFold',fold),1) / n;
+            PCRmsep = sum(crossval(@pcrsse,this.dataCal,this.responseCal,'KFold',fold),1) / n; 
             % Plot
             figure(1)
-            plot(0:10,PLSmsep(2,:),'b-o',0:10,PCRmsep,'r-^');
+            plot(0:10,PLSmsep(2,:),'b-o',0:10,PCRmsep,'r-^'); %show the influence of each komponent
             xlabel('Number of components');
             ylabel('Estimated Mean Squared Prediction Error');
             legend({'PLSR' 'PCR'},'location','NE');
@@ -106,16 +106,16 @@ classdef NIRRegressionAnalyzer < handle
             [n,p] = size(X);
             
             [Xloadings,Yloadings,Xscores,Yscores,betaPLS] = plsregress(X,y,components,'CV',cvFold);
-            yfitPLS = [ones(n,1) X]*betaPLS;
-            this.betaPLS = betaPLS;
+            yfitPLS = [ones(n,1) X]*betaPLS; % PLS
+            this.betaPLS = betaPLS; % store the coefficient of PLS
             
             [PCALoadings,PCAScores,PCAVar] = pca(X,'Economy',false);
-            betaPCR = regress(y-mean(y), PCAScores(:,1:components));
+            betaPCR = regress(y-mean(y), PCAScores(:,1:components)); % calculate the coefficient
                         
             betaPCR = PCALoadings(:,1:components)*betaPCR;
             betaPCR = [mean(y) - mean(X)*betaPCR; betaPCR];
             this.betaPCR = betaPCR;
-            yfitPCR = [ones(n,1) X]*betaPCR;
+            yfitPCR = [ones(n,1) X]*betaPCR; % BETA is a (p+1)-by-m matrix, containing intercept terms in the first row. the same as PLS
             
             figure(2)
             z = round(min(this.responseCal,[],'all')):round(max(this.responseCal,[],'all'));
@@ -153,7 +153,7 @@ classdef NIRRegressionAnalyzer < handle
             RMSE_PCR = sqrt(mean((y - yfitPCR).^2));
         end
         
-        function [RMSE_PSL_P, RMSE_PCR_P] = validateRegression(this)
+        function [RMSE_PSL_P, RMSE_PCR_P] = validateRegression(this) % validation of PCA and PLS 
             X = this.dataVal;
             y = this.responseVal;
             
