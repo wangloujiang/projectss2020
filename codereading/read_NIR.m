@@ -91,7 +91,7 @@ classdef NIRRegressionAnalyzer < handle
             PCRmsep = sum(crossval(@pcrsse,this.dataCal,this.responseCal,'KFold',fold),1) / n; 
             % Plot
             figure(1)
-            plot(0:10,PLSmsep(2,:),'b-o',0:10,PCRmsep,'r-^'); %show the influence of each komponent
+            plot(0:10,PLSmsep(2,:),'b-o',0:10,PCRmsep,'r-^'); %show the influence of each komponent Problem: why shows this graph？ 
             xlabel('Number of components');
             ylabel('Estimated Mean Squared Prediction Error');
             legend({'PLSR' 'PCR'},'location','NE');
