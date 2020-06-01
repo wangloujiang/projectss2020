@@ -72,8 +72,8 @@ classdef NIRRegressionAnalyzer < handle
         
         function splitData(this, m, n) %split data（1 to 224） to calculation and validation
             this.dataCal = this.data;
-            this.dataCal(m:n:end,:) = []; % row before m are used to train
-            this.dataVal = this.data(m:n:end,:); % row after m are used to validation
+            this.dataCal(m:n:end,:) = []; % row 1 3 5 7...are used to train
+            this.dataVal = this.data(m:n:end,:); % rest row  are used to validation
             
             this.responseCal = this.response; %the same method but problem： what ’s the meaning of column 225？
             this.responseCal(m:n:end,:) = [];
@@ -96,7 +96,7 @@ classdef NIRRegressionAnalyzer < handle
             ylabel('Estimated Mean Squared Prediction Error');
             legend({'PLSR' 'PCR'},'location','NE');
             
-            numComp = input('Select number of Components: ');
+            numComp = input('Select number of Components: ');%select the components
 
         end
         
@@ -118,7 +118,7 @@ classdef NIRRegressionAnalyzer < handle
             yfitPCR = [ones(n,1) X]*betaPCR; % BETA is a (p+1)-by-m matrix, containing intercept terms in the first row. the same as PLS
             
             figure(2)
-            z = round(min(this.responseCal,[],'all')):round(max(this.responseCal,[],'all'));
+            z = round(min(this.responseCal,[],'all')):round(max(this.responseCal,[],'all'));%search the extrem value
             plot(y,yfitPLS,'bo',y,yfitPCR,'r^',z,z,'k--'); 
             xlim([min(this.response, [], 'all')-2 max(this.response, [], 'all')+2])
             ylim([min(this.response, [], 'all')-2 max(this.response, [], 'all')+2])
