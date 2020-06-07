@@ -1,5 +1,7 @@
-%% quick check of the method imbinary
-img = imread("D:\Pictures\Pictures\5783_1.jpg");
+%% quick check of the method imbin
+
+
+img = imread("D:\Pictures\pic\5823_1.jpg");
 roi = [60 2585 70 2100];
 
 img = img(roi(3):roi(4),roi(1):roi(2),:);
@@ -23,7 +25,6 @@ imgray = rgb2gray(img2);
 J = imnoise(imgray,"salt & pepper",0.1);
 K = medfilt2(J);
 I_bw = imbinarize(K,'adaptive','ForegroundPolarity','dark');
-
 
 
 
