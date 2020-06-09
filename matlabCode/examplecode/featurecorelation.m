@@ -8,4 +8,10 @@ variationmatrix = kron(variation',variation);
 squarvariation= sqrt(variationmatrix);
 corelation = covariance ./squarvariation;
 bar3(corelation);
+figure;
+for i =1:20
+subplot(4,5,i);bar(corelation(:,i));title(i);
+end
+
+
 colorbar;

@@ -4,7 +4,7 @@
 %           (z.B. Nr 327 oder 379 +/- 1 oder 2)
 %##############
 
-classdef ImageDataAnalyzer < handle
+classdef ImageDataAnalyzer_loujiang < handle
     properties
         imgRGB
         imgHSV
@@ -16,7 +16,7 @@ classdef ImageDataAnalyzer < handle
 %         roi = [45 15 445 635]; 
 %         imgSize = [534 676];
         roi = [200 70 1733 2525]; 
-        imgSize = [2134 2704];
+        imgSize = [2031 2526];
 
         regionprops
        
@@ -62,14 +62,18 @@ classdef ImageDataAnalyzer < handle
         end
         
         function extractFeatures(this, img, img2, mass)
+            roiAC = [60 2585 70 2100];
             if nargin == 4
                 this.imgUV = imread(img2);
+                this.imgUV =this.imgUV(roiAC(3):roiAC(4),roiAC(1):roiAC(2),:);
                 this.features(1) = mass;
             elseif nargin == 3
                 this.imgUV = imread(img2);
+                this.imgUV =this.imgUV(roiAC(3):roiAC(4),roiAC(1):roiAC(2),:);
                 this.features(1) = 1;
             else
                 this.imgUV = imread(img);
+                this.imgUV =this.imgUV(roiAC(3):roiAC(4),roiAC(1):roiAC(2),:);
                 this.features(1) = 1;
             end
                     
@@ -87,60 +91,158 @@ classdef ImageDataAnalyzer < handle
         end
         
         function readImage(this, img)
+            roiAC = [60 2585 70 2100];
             this.imgRGB = imread(img);
+            this.imgRGB = this.imgRGB(roiAC(3):roiAC(4),roiAC(1):roiAC(2),:);
         end
         
         function whiteBalance(this)
             img = double(this.imgRGB);
-            r = 129;
-            g = 119;
-            b = 82;
-            img(:,:,1) = img(:,:,1) * 250 / (r+1E-12);
-            img(:,:,2) = img(:,:,2) * 250 / (g+1E-12);
-            img(:,:,3) = img(:,:,3) * 250 / (b+1E-12);
+            Rx4 = img(:,:,1)*4;  Gx4 = img(:,:,2)*4;  Bx4 = img(:,:,3)*4; 
+            R = img(:,:,1);      G = img(:,:,2);      B = img(:,:,3);
+            Rave = mean(mean(R)); 
+            Gave = mean(mean(G)); 
+            Bave = mean(mean(B));
+            Kave = (Rave + Gave + Bave) / 3;
+            img(:,:,1) = (Kave/Rave)*R; 
+            img(:,:,2) = (Kave/Gave)*G; 
+            img(:,:,3) = (Kave/Bave)*B; 
+            R2 = (Kave/Rave)*Rx4; G2 = (Kave/Gave)*Gx4; B2 = (Kave/Bave)*Bx4; 
             this.imgRGB = uint8(img);
+            RGB_whitex4 = cat(3, R2, G2, B2);
+          
             
             imgUV = double(this.imgUV);
-            r = 129;
-            g = 119;
-            b = 82;
-            imgUV(:,:,1) = imgUV(:,:,1) * 250 / (r+1E-12);
-            imgUV(:,:,2) = imgUV(:,:,2) * 250 / (g+1E-12);
-            imgUV(:,:,3) = imgUV(:,:,3) * 250 / (b+1E-12);
+            imgUV(:,:,1) = (Kave/Rave)*imgUV(:,:,1); 
+            imgUV(:,:,1) = (Kave/Gave)*imgUV(:,:,2);
+            imgUV(:,:,1) = (Kave/Bave)*imgUV(:,:,3);
             this.imgUV = uint8(imgUV);
+            
             imshow(this.imgRGB)
         end
         
         function img2binary(this)
-            mask = zeros(this.imgSize(1),this.imgSize(2));
-            mask(this.roi(1):(this.roi(1)+this.roi(3)),this.roi(2):(this.roi(2)+this.roi(4))) = 1;
-
-            % Weichzeichner anwenden
-            step2 = imgaussfilt(this.imgRGB,1);
-
-            % Umwandlung in Bi鋜bild
-            step3 = im2bw(step2,0.12);
             
-            % Bin鋜bild maskieren, sodass nur der ROI betrachtet wird
-            step4 = step3 .* mask;
+            img = this.imgRGB;
+           
             
-            % Kleine wei遝 Objekte entfernen
-            step5 = bwareaopen(step4, 5000);
-% just show the result of the change.
-%             figure(1);
-%             imshow(step2);
-%             figure(2);
-%             imshow(step3);
-%             figure(3);
-%             imshow(step4);
-%             figure(4);
-%             imshow(step5);
+            img2=imgaussfilt(img,1);
 
+            imgray = rgb2gray(img2);
+            J = imnoise(imgray,"salt & pepper",0.1);
+            K = medfilt2(J);
+            I_bw = imbinarize(K,'adaptive','ForegroundPolarity','dark');
+
+
+
+            s = strel('disk',10);% define the brush
+            I_close = imclose(I_bw,s); % fill the small clapse
+            [height,width,a] = size(I_close);
+            filter1 = ones(height,width);
+            filtedImg = img;
+            for heightsearch =  1:height
+                detectBlack = false;
+                detectWhite = false;
+                imgleft=1;
+                for widesearch = 1:width
+                    if I_close(heightsearch,widesearch) == false
+                        detectBlack = true;
+                    end
+                    if (I_close(heightsearch,widesearch) == true) && (detectBlack == true )
+                        imgleft = widesearch;
+                        break;
+                    end
+                end
+                filtedImg(heightsearch,1:imgleft,1)=255;
+                filtedImg(heightsearch,1:imgleft,2)=255;
+                filtedImg(heightsearch,1:imgleft,3)=255;
+                filter1(heightsearch,1:imgleft)=0;
+                
+                
+            end
+            for heightsearch =  1:height
+                detectBlack = false;
+                detectWhite = false;
+                imgright=1;
+                for widesearch = width:-1:1
+                    if I_close(heightsearch,widesearch) == false
+                        detectBlack = true;
+                    end
+                    if (I_close(heightsearch,widesearch) == true) && (detectBlack == true )
+                        imgright = widesearch;
+                        break;
+                    end
+                end
+                filtedImg(heightsearch,imgright:width,1)=255;
+                filtedImg(heightsearch,imgright:width,2)=255;
+                filtedImg(heightsearch,imgright:width,3)=255;
+                filter1(heightsearch,imgright:width)=0;
+                
+                
+            end
+            % search length
+            filter2 = ones(height,width);
+            for widesearch = 1:width
+                detectBlack = false;
+                detectWhite = false;
+                imgup=1;
+                for heightsearch =  1:height
+                    if I_close(heightsearch,widesearch) == false
+                        detectBlack = true;
+                    end
+                    if (I_close(heightsearch,widesearch) == true) && (detectBlack == true )
+                        imgup = heightsearch;
+                        break;
+                    end
+                end
+                filtedImg(1:imgup,widesearch,1)=255;
+                filtedImg(1:imgup,widesearch,2)=255;
+                filtedImg(1:imgup,widesearch,3)=255;
+                filter2(1:imgup,widesearch,2)=0;
+                
+                
+            end
+            for widesearch =  1:width
+                detectBlack = false;
+                detectWhite = false;
+                imgdown=1;
+                for heightsearch = height:-1:1
+                    if I_close(heightsearch,widesearch) == false
+                        detectBlack = true;
+                    end
+                    if (I_close(heightsearch,widesearch) == true) && (detectBlack == true )
+                        imgdown = heightsearch;
+                        break;
+                    end
+                end
+                filtedImg(imgdown:height,widesearch,1)=255;
+                filtedImg(imgdown:height,widesearch,2)=255;
+                filtedImg(imgdown:height,widesearch,3)=255;
+                filter2(imgdown:height,widesearch)=0;
+                
+                
+            end
             
-            % schwarze L鯿her in Bin鋜bild entfernen
-            this.imgBW = logical(bwareafilt(imfill(step5,'holes'),1));
+            I_bw = im2bw(filtedImg,0.8);
+            s = strel('disk',10);% define the brush
+            I_close = imclose(I_bw,s); % fill the small clapse
+            I_close= ones(height,width) - I_close;
+            
+            
+            L = bwlabel(I_close);% lable the connected same piexel region
+            stats = regionprops(L); % get the labled information,such as area, BoundingBox,...
+            
+            Ar = cat(1, stats.Area);% label the size of each
+            ind = find(Ar ==max(Ar));%find the biggest area lable.
+            I_close(find(L~=ind))=0;
+            
+            
+            
+            
+            
+
+            this.imgBW = I_close;
             % generate a logical matrix for the extract only the usfull range.
-            imshow(this.imgBW);
         
             this.imgRGB = this.imgRGB.*uint8(this.imgBW);
             % all the information out of range set to 0, black.
@@ -229,7 +331,7 @@ classdef ImageDataAnalyzer < handle
         end
         
         function extractColorFeatures2(this)
-            scaleFactor = 500;
+            scaleFactor = 30;
             avWindowSize = 6;
             
             % Farbmaske erzeugen
@@ -275,7 +377,7 @@ classdef ImageDataAnalyzer < handle
             % Graumaske erzeugen
             this.grayMask = imcomplement(this.colorMask);
             imshow(this.colorMask)
-            imshow( this.grayMask)
+            imshow(this.grayMask)
             % HSV-Statisik
             h = this.imgHSV(:,:,1);
             hGray = h(this.grayMask);

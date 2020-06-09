@@ -3,7 +3,7 @@ tic;
 %index =5747;
 %img=index_image_rgb{index};
 
-img="D:\Pictures\pic\4250_1.jpg";
+img="D:\Pictures\pic\4_1.jpg";
 img=imread(img);
 img=im2double(img);
 img=img(200:1933,70:2595,:);

@@ -1,7 +1,7 @@
 %% quick check of the method imbin
 
 
-img = imread("D:\Pictures\pic\5823_1.jpg");
+img = imread("D:\Pictures\pic\1275_1.jpg");
 roi = [60 2585 70 2100];
 
 img = img(roi(3):roi(4),roi(1):roi(2),:);
