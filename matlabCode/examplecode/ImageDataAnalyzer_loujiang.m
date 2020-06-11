@@ -331,7 +331,7 @@ classdef ImageDataAnalyzer_loujiang < handle
         end
         
         function extractColorFeatures2(this)
-            scaleFactor = 30;
+            scaleFactor = 120;
             avWindowSize = 6;
             
             % Farbmaske erzeugen
@@ -378,6 +378,7 @@ classdef ImageDataAnalyzer_loujiang < handle
             this.grayMask = imcomplement(this.colorMask);
             imshow(this.colorMask)
             imshow(this.grayMask)
+            imshow(this.imgHSV)
             % HSV-Statisik
             h = this.imgHSV(:,:,1);
             hGray = h(this.grayMask);
