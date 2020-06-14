@@ -1,10 +1,10 @@
 load ('Example_Data_CaCO3_Kaolin.mat');
-spectra = dataCaCO3;
+spectra = dataKaolin;
 % sort the Data according to response 
 data_sort= sortrows(spectra,225);
 data_load= data_sort(:,1:224);
 data_response=data_sort(:,225);
-this.wavelength = 939:(1727-939)/223:1727
+wavelength = 939:(1727-939)/223:1727;
 %pre-process 
 %Step1: filter
 data_filt1=medfilt1(data_load,3,[],2);
