@@ -19,6 +19,6 @@
 # plan
 1. need the total data.-- generate the basic result for the new data.
 2. try if use NIR data can get to some big group --- need very high prediction correctness-- then go to different detail group 
-3. k-mean.
+
 4. the change of the feature selection code.
 5. new method: find the determinate wavelength (PCA/LDA selection) of the different classes.
