@@ -1,3 +1,5 @@
+clear all;
+clc;
 load ('Example_Data_CaCO3_Kaolin.mat');
 spectra = dataKaolin;
 % sort the Data according to response 
@@ -8,17 +10,28 @@ wavelength = 939:(1727-939)/223:1727;
 %pre-process 
 %Step1: filter
 data_filt1=medfilt1(data_load,3,[],2);
-%Step 2: normalization 
-data_norm=(data_filt1 - mean(data_filt1,2))./std(data_filt1,0,2);
-%Step 3: Savitzky-Golay filter
- [~,g] = sgolay(2,11);
-  for i = 1:size(data_norm,1)    
-               data_filt2(i,:) = conv(data_norm(i,:)', factorial(2) * g(:,2+1), 'same');
+%Step 2: Savitzky-Golay filter
+order=2;
+framelen=11;
+b = sgolay(order,framelen);
+  for i = 1:size(data_filt1,1)
+      x=data_filt1(i,:);
+      x_t=x';
+      ycenter = conv(x_t,b((framelen+1)/2,:),'valid');
+      ybegin = b(end:-1:(framelen+3)/2,:) * x_t(framelen:-1:1);
+      yend = b((framelen-1)/2:-1:1,:) * x_t(end:-1:end-(framelen-1));
+      y = [ybegin; ycenter; yend];
+      data_filt2(i,:)=y;
+      
+               %data_filt2(i,:) = conv(data_filt1(i,:)', factorial(0) * g(:,0+1), 'same');
   end
+%Step 3: normalization 
+data_norm=(data_filt2 - mean(data_filt2,2))./std(data_filt2,0,2);
+
  %Step 4: Split Data
- data_load_cal= data_filt2;
+ data_load_cal= data_norm;
  data_load_cal(1:2:end,:)=[];
- data_load_val=data_filt2(1:2:end,:);
+ data_load_val=data_norm(1:2:end,:);
  
  data_response_cal=data_response;
  data_response_cal(1:2:end,:)=[];

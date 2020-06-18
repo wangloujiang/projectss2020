@@ -1,0 +1,18 @@
+y1 = ones (200,1);
+y2 = ones(200,1).*2;
+y3 = ones(400,1).*3;
+y4 = ones(200,1).*4;
+y5 = ones(400,1).*5;
+y6 = ones(400,1).*6;
+y7 = ones(400,1).*7;
+y = [y1;y2;y3;y4;y5;y6;y7];
+figure;
+hold on;
+scatter(featuresnew(1:200,1),y1,'filled');
+scatter(featuresnew(201:400,1),y2,'filled');
+%scatter(featuresnew(601:1000,1),y3,'filled');
+%scatter(featuresnew(1001:1200,1),y4,'filled');
+%scatter(featuresnew(1201:1600,1),y5,'filled');
+%scatter(featuresnew(1601:2000,1),y6,'filled');
+%scatter(featuresnew(2001:2400,1),y7,'filled');
+hold off;
