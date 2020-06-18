@@ -1,8 +1,9 @@
 %% find the coorelation of the different features here,
-clc;clear;
+
 load('loujiangresult.mat')
+resultsnew = featuresnew;
 % result is the feature matrix
-x = 1:24;
+x = 1:224;
 id = isnan(resultsnew(:,14));
 resultsnew(id,:)=[];
 
@@ -16,9 +17,9 @@ corelation = covariance ./squarvariation;
 e = eig(covariance);
 [V,D] = eig(covariance);
 
-D= D(:,9:24);
+V= V(:,219:224);
 
-modle = resultsnew(:,1:24)*D;
+modle = featuresnew*V;
 [Y,PS]= mapminmax(modle',-1,1);
 
 modle= [Y' resultsnew(:,25)];
