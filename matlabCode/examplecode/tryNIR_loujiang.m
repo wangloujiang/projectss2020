@@ -34,7 +34,10 @@ testdata2 = testdata;
   for i = 1:size(testdata,1)    
                testdata(i,:) = conv(testdata(i,:)', factorial(deriv) * g(:,deriv+1), 'same');
   end
-
+deriv =1;
+  for i = 1:size(testdata2,1)    
+               testdata2(i,:) = conv(testdata2(i,:)', factorial(deriv) * g(:,deriv+1), 'same');
+  end
   
   
  yfit = GPRexp.predictFcn(testdata(:,lowerbound:upperbound));
