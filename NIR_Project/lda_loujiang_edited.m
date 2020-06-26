@@ -35,13 +35,15 @@ NIRldareduced= [feature,result];
 %show the result: 
 figure(1)
 hold on;
-scatter(NIRldareduced(1:400,6),NIRldareduced(1:400,4),'filled');
-scatter(NIRldareduced(401:782,6),NIRldareduced(401:782,4),'filled');
-scatter(NIRldareduced(783:1182,6),NIRldareduced(783:1182,4),'filled');
-scatter(NIRldareduced(1183:1582,6),NIRldareduced(1183:1582,4),'filled');
-scatter(NIRldareduced(1583:1982,6),NIRldareduced(1583:1982,4),'filled');
-scatter(NIRldareduced(1983:2382,6),NIRldareduced(1983:2382,4),'filled');
-scatter(NIRldareduced(2383:2674,6),NIRldareduced(2383:2674,4),'filled');
-scatter(NIRldareduced(2675:3074,6),NIRldareduced(2675:3074,4),'filled');
-scatter(NIRldareduced(3075:3274,6),NIRldareduced(3075:3274,4),'filled');
-scatter(NIRldareduced(3275:3674,6),NIRldareduced(3275:3674,4),'filled');
+scatter(NIRldareduced(1:400,6),NIRldareduced(1:400,5),'filled');
+scatter(NIRldareduced(401:782,6),NIRldareduced(401:782,5),'filled');
+scatter(NIRldareduced(783:1182,6),NIRldareduced(783:1182,5),'filled');
+scatter(NIRldareduced(1183:1582,6),NIRldareduced(1183:1582,5),'filled');
+scatter(NIRldareduced(1583:1982,6),NIRldareduced(1583:1982,5),'filled');
+scatter(NIRldareduced(1983:2382,6),NIRldareduced(1983:2382,5),'filled');
+scatter(NIRldareduced(2383:2674,6),NIRldareduced(2383:2674,5),'filled');
+scatter(NIRldareduced(2675:3074,6),NIRldareduced(2675:3074,5),'filled');
+scatter(NIRldareduced(3075:3274,6),NIRldareduced(3075:3274,5),'filled');
+scatter(NIRldareduced(3275:3674,6),NIRldareduced(3275:3674,5),'filled');
+legend('durchgefabrt','gKarton','gPaper','Magazine','Wellpappe','Werbehefte','wKarton','wPapier','wWellpappe','Zeitung');
+hold off;

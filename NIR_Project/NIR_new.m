@@ -28,14 +28,20 @@ b = sgolay(order,framelen);
 %Step 3: normalization 
 data_norm=(data_filt2 - mean(data_filt2,2))./std(data_filt2,0,2);
 
+%Step 4: Data Deveriate 
+[~,g] = sgolay(2,11);
+ for i = 1:size(data_norm,1)    
+               data_d(i,:) = conv(data_norm(i,:)', factorial(2) * g(:,2+1), 'same');
+  end
+
  %Step 4: Split Data
- data_load_cal= data_norm;
- data_load_cal(1:2:end,:)=[];
- data_load_val=data_norm(1:2:end,:);
+ data_load_cal= data_d;
+ data_load_cal(1:3:end,:)=[];
+ data_load_val=data_d(1:3:end,:);
  
  data_response_cal=data_response;
- data_response_cal(1:2:end,:)=[];
- data_response_val=data_response(1:2:end,:);
+ data_response_cal(1:3:end,:)=[];
+ data_response_val=data_response(1:3:end,:);
  %Step 5: Regression: 主成分分析和偏线性回归
  %Step 5.1 选取成分数 ncomp assumption: n=10
  [n,p] = size(data_load_cal);
