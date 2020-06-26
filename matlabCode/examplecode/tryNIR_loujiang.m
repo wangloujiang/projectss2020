@@ -8,7 +8,7 @@ datawithout= (datawithout-mean(datawithout,2))./std(datawithout,0,2);
 deriv = 1;
 datawithout2 = datawithout;
 % use the first dirivitive apply to the data
-[~,g] = sgolay(5,25);
+[~,g] = sgolay(2,3);
   for i = 1:size(datawithout,1)    
                datawithout(i,:) = conv(datawithout(i,:)', factorial(deriv) * g(:,deriv+1), 'same');
   end
@@ -18,7 +18,7 @@ datawithout2 = datawithout;
   end
   % cut the data window take the range 1350-1500
 lowerbound = floor((1350-939)/((1727-939)/223));
-upperbound = ceil((1530-939)/((1727-939)/223));
+upperbound = ceil((1500-939)/((1727-939)/223));
 datawithout= datawithout(:,lowerbound:upperbound);
 datawithout2= datawithout2(:,lowerbound:upperbound);
 % combine data

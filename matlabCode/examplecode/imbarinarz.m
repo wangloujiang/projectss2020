@@ -1,7 +1,7 @@
 %% quick check of the method imbin
-
-
-img = imread("D:\Pictures\pic\1275_1.jpg");
+clc;
+tic;
+img = data.camW;
 roi = [60 2585 70 2100];
 
 img = img(roi(3):roi(4),roi(1):roi(2),:);
@@ -24,8 +24,9 @@ img2=imgaussfilt(RGB_whitex4,1);
 imgray = rgb2gray(img2);
 J = imnoise(imgray,"salt & pepper",0.1);
 K = medfilt2(J);
+imshow(K);
 I_bw = imbinarize(K,'adaptive','ForegroundPolarity','dark');
-
+imshow(I_bw);
 
 
 s = strel('disk',10);% define the brush
@@ -142,6 +143,6 @@ I_close(find(L~=ind))=0;%fill the hole of other places
 subplot(2,2,1);imshow(filtedImg);title('result iamge before filter');subplot(2,2,2), imshow(I_close);title('the edge ');
 subplot(2,2,3), imshow(img);title('the origin ');
 
-
+toc;
 
 

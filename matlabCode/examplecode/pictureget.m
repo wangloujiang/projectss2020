@@ -4,7 +4,7 @@ tic;
 %img=index_image_rgb{index};
 
 img="D:\Pictures\pic\4_1.jpg";
-img=imread(img);
+img=data.camW;
 img=im2double(img);
 img=img(200:1933,70:2595,:);
 s=rgb2gray(img);
