@@ -6,8 +6,10 @@ tic;
 img="D:\Pictures\pic\4_1.jpg";
 img=data.camW;
 img=im2double(img);
+imshow(img);
 img=img(200:1933,70:2595,:);
 s=rgb2gray(img);
+imshow(s);
 s1=imfilter(s,fspecial('laplacian',0),'replicate');
 
 s21=imfilter(s,fspecial('sobel'),'replicate');
@@ -17,6 +19,7 @@ s2=imfilter(s2,fspecial('average'),[3 3],'replicate');
 
 s3=(s-s1).*s2;
 s4=s+s3;
+imshow(s4);
 % subplot(2,2,1);
 % imshow(s);
 % subplot(2,2,2);
@@ -32,11 +35,15 @@ s4=s+s3;
 % imshow(s4);
 
 s = adapthisteq(s4,'clipLimit',0.02);
+imshow(s);
 bw=imbinarize(s,0.25);
+imshow(bw);
 bw1=bwareaopen(bw,1000);
 se=strel('disk',200);
 bw2=imclose(bw1,se);
+imshow(bw2);
 bw3=imfill(bw2,'holes');
+imshow(bw3);
 bw_boundry=bwboundaries(bw3,'noholes');
 
 imshowpair(img,bw3,'montage');

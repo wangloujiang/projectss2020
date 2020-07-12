@@ -1,8 +1,9 @@
 %% the divition of the result
 percentoftest = 0.3;% define how much are taken out as independent test data
 newid = zeros(1,1);
+resultsnew = NIRdata;
 for class = 1:10
-    id = resultsnew(:,25)== class;
+    id = resultsnew(:,225)== class;
     number = 1:size(resultsnew,1);
     id = id .* number';
     iszero= id(:,1) == 0;

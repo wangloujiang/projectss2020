@@ -40,5 +40,5 @@ deriv =1;
   end
   
   
- yfit = GPRexp.predictFcn(testdata(:,lowerbound:upperbound));
+ yfit = trainedModel.predictFcn(testdata(:,lowerbound:upperbound));
 

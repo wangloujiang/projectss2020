@@ -1,22 +1,21 @@
-%% lda method 
-clc;clear;
-% simple example 
-x= [1 2;3 1;-2 -2;-3 -1];
-x0 = [1 2;3 1];
-x1 =[-2 -2;-3 -1];
-totalmean = mean(x);
-mean0 = mean(x0);
-mean1 = mean(x1);
-x0 =x0-repmat(mean0,2,1);
-x1 =x1-repmat(mean1,2,1);
-sw = x0'*x0+x1'*x1;
-sb=2*(mean0-totalmean)'*(mean0-totalmean)...
-    +2*(mean1-totalmean)'*(mean1-totalmean);
+% %% lda method 
+% clc;clear;
+% % simple example 
+% x= [1 2;3 1;-2 -2;-3 -1];
+% x0 = [1 2;3 1];
+% x1 =[-2 -2;-3 -1];
+% totalmean = mean(x);
+% mean0 = mean(x0);
+% mean1 = mean(x1);
+% x0 =x0-repmat(mean0,2,1);
+% x1 =x1-repmat(mean1,2,1);
+% sw = x0'*x0+x1'*x1;
+% sb=2*(mean0-totalmean)'*(mean0-totalmean)...
+%     +2*(mean1-totalmean)'*(mean1-totalmean);
 %% method of getting lda eigenvalue and eigenvaktor for all
 % x as the total result +feature. x=...
-clc;clear;
-load('C:\Users\LOUJIANG\Documents\GitHub\projectss2020\matlabCode\examplecode\NIR coefficient\NIRTable.mat');
-x = NIRdata;
+
+x = traindata;
 [n,m]= size(x);
 feature = x(:,1:m-1);
 result = x(:,m);
