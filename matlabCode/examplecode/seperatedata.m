@@ -1,9 +1,9 @@
 %% the divition of the result
 percentoftest = 0.3;% define how much are taken out as independent test data
 newid = zeros(1,1);
-resultsnew = NIRdata;
+%resultsnew = NIRdata;
 for class = 1:10
-    id = resultsnew(:,225)== class;
+    id = resultsnew(:,23)== class;
     number = 1:size(resultsnew,1);
     id = id .* number';
     iszero= id(:,1) == 0;
@@ -12,7 +12,7 @@ for class = 1:10
     if(sum(id)==0)
         newid = id(random(1:floor((1-percentoftest)*size(id,1))));
     else
-        newid = [newid;id(random(1:floor((1-percentoftest)*size(id,1))))];
+        newid = [newid;id(random(1:floor((1-percentoftest)*size(id,1))))]; 
     end
 end
 traindata = resultsnew(newid(2:2443),:);
