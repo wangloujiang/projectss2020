@@ -1,4 +1,4 @@
-load('C:\Users\LOUJIANG\Documents\GitHub\projectss2020\NIR_Project\NIRTable.mat');
+load('C:\Users\LOUJIANG\Documents\GitHub\projectss2020\matlabCode\examplecode\newdata\NIRdata\NIRdata.mat');
 % prepare the modle
 load('Example_Data_CaCO3_Kaolin.mat');
 %normalization of the data

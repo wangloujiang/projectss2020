@@ -8,8 +8,9 @@ function [traindata,testdata] = seperatedata(inputmatrix,percentoftest)
 %   traindata,testdata            
 %   example:[traindata,testdata] = seperatedata(inputmatrix,percentoftest)
 %% Code
+%initial the storage area
 newid = zeros(1,1);
-%resultsnew = NIRdata;
+
 [n m]= size(inputmatrix);
 classids = unique(inputmatrix(:,m));
 
