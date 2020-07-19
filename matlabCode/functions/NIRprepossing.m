@@ -11,8 +11,8 @@ function [firstorder,secondorder,firstoderwithlabel,secondorderwithlabel] = NIRp
 % =NIRprepossing(NIRdata,1300,1400);
 
 %% Constant defintion
-lowmin = 939;
-highmax = 1727;
+lowmin = 939; % low wavelength
+highmax = 1727;% high wavelength
 withlable= true; 
 
 %% Preprocessing
