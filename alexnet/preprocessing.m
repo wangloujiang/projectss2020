@@ -3,7 +3,7 @@ imsize=827;
 step=100;
 
 
-load('D:\learn\TU Leben\4. Semester\arp\Pictures_20200615\Durchgefärbt1\36.mat')
+load('E:\ARP\Pictures_20200615\Durchgefärbt1\36.mat')
 roiAC = [170 2585 70 2100]; 
 A=data.camW;
 A = A(roiAC(3):roiAC(4),roiAC(1):roiAC(2),:);
