@@ -1,4 +1,10 @@
-dt = 1/5;
-t = (0:dt:200-dt)';
-
-x = 5*sin(2*pi*0.2*t) + randn(size(t));
+clear;
+clc;
+load('Example_Data_CaCO3_Kaolin');
+x=dataKaolin;
+wave=939:(1727-939)/223:1727; 
+figure(1)
+plot(wave, x(36,1:224));
+title('NIR Spectrum');
+xlabel('wavelength/nm');
+ylabel('Reflection');

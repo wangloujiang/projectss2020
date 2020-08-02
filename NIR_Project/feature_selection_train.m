@@ -1,7 +1,7 @@
 %feature selection 
 clear all;
 clc;
-load('E:\ARP\work\NIR_Project\feature extraction\traindata.mat');
+load('E:\ARP\work\NIR_Project\feature extraction\traindatarange.mat');
 X=traindata(:,1:224);
 %Step1: filter
 X_filt1=medfilt1(X,3,[],2);
@@ -27,7 +27,8 @@ X_norm=(X_filt2 - mean(X_filt2,2))./std(X_filt2,0,2);
 [~,g] = sgolay(2,11);
  for i = 1:size(X_norm,1)    
                X_d(i,:) = conv(X_norm(i,:)', factorial(2) * g(:,2+1), 'same');
-  end
+ end
+  wavelength = 939:(1727-939)/223:1727;
 figure(1)
   Y=1:224;
   plot(Y,X_d);
@@ -38,5 +39,10 @@ bar(scores_1(idx_1))
 xlabel('Predictor rank');
 ylabel('Predictor importance score');
 legend('feature selectio with minimum redundancy maximum relevance');
+figure(3)
+plot(wavelength,scores_1);
+xlabel('wavelength/nm');
+ylabel('Predictor importance score');
+set(gca,'FontSize',20,'Fontname', 'Times New Roman')
 
 

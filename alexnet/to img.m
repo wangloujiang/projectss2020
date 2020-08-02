@@ -1,6 +1,6 @@
 clc
 clear
-maindir = 'D:\learn\TU Leben\4. Semester\arp\Pictures_20200615';
+maindir = 'E:\ARP\Pictures_20200615';
 subdir  = dir( maindir );
 
 for i = 3 : length( subdir )

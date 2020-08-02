@@ -1,11 +1,11 @@
 clear all;
 clc
-load ('Example_Data_CaCO3_Kaolin.mat');
-spectra = dataKaolin;
+load ('Kaolin110-75changed.mat');
+spectra = Kaolintrainset;
 % sort the Data according to response 
-data_sort= sortrows(spectra,225);
-data_load= data_sort(:,1:224);
-data_response=data_sort(:,225);
+%data_sort= sortrows(spectra,225);
+data_load= spectra(:,1:224);
+data_response= spectra(:,225);
 wavelength = 939:(1727-939)/223:1727;
 %pre-process 
 %Step1: filter
@@ -14,10 +14,6 @@ data_filt1=medfilt1(data_load,3,[],2);
 data_norm=(data_filt1 - mean(data_filt1,2))./std(data_filt1,0,2);
 %Step 3: Savitzky-Golay filter
  [~,g] = sgolay(2,9);
- deriv1=1;
-  for i = 1:size(data_norm,1)    
-               data_deriv1(i,:) = conv(data_norm(i,:)', factorial(deriv1) * g(:,deriv1+1), 'same');
-  end
  deriv2=2;
     for i = 1:size(data_norm,1)    
                data_deriv2(i,:) = conv(data_norm(i,:)', factorial(deriv2) * g(:,deriv2+1), 'same');
@@ -27,10 +23,11 @@ datamin = 1350;
 datamax=1500;
 idx = (wavelength > datamin) & (wavelength < datamax);
 wavelength = wavelength(idx);
-data_selected1 =  data_deriv1(:,idx);
+%data_selected1 =  data_deriv1(:,idx);
 data_selected2 =  data_deriv2(:,idx);
 %combine the data 
-data_deriv = [data_selected1,data_selected2];
+%data_deriv = [data_selected1,data_selected2];
+data_deriv = data_selected2;
  %Step 4: Split Data
  data_load_cal= data_deriv;
  data_load_cal(1:3:end,:)=[];
@@ -88,11 +85,6 @@ data_deriv = [data_selected1,data_selected2];
  title('Model-Validation');
  xlabel('Observed Response');
  ylabel('Fitted Response');
- figure(5)
- hold on;
- a=1:24;
- scatter(a,data_response_val,'r*');
- scatter(a,yfitPLS_V,'bo');
  %Calculation: 
   RMSE_PSL_P = sqrt(mean((data_response_val - yfitPLS_V).^2));
   RMSE_PCR_P = sqrt(mean((data_response_val - yfitPCA_V).^2));

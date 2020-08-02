@@ -1,8 +1,8 @@
 %feature selection 
 clear all;
 clc;
-load('E:\ARP\work\NIR_Project\feature extraction\selectdata.mat');
-load('E:\ARP\work\NIR_Project\feature extraction\idx');
+load('E:\ARP\work\NIR_Project\feature extraction\testdatarange.mat');
+load('E:\ARP\work\NIR_Project\feature extraction\idxrange');
 X=testdata(:,1:224);
 %Step1: filter
 X_filt1=medfilt1(X,3,[],2);

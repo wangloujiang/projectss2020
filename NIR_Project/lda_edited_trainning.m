@@ -2,7 +2,7 @@
 %% method of getting lda eigenvalue and eigenvaktor for all
 % x as the total result +feature. x=...
 clc;clear;
-load('E:\ARP\work\NIR_Project\feature extraction\traindata.mat');
+load('E:\ARP\work\NIR_Project\feature extraction\traindatarange.mat');
 x = traindata;
 [n,m]= size(x);
 feature = x(:,1:m-1);
